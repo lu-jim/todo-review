@@ -79,7 +79,7 @@ li {
 }
 
 .list-done {
-  text-decoration: line-through;
+  text-decoration: line-through !important;
   color: #888;
 }
 

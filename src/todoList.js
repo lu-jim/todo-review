@@ -4,9 +4,14 @@ class todoList {
   static getList = () => JSON.parse(localStorage.getItem('list')) || [];
 
   //  Add task to local storage
+
+  static saveList = (list) => {
+    localStorage.setItem('list', JSON.stringify(list));
+  };
+
   static saveToDo = (task) => {
     const list = [...todoList.getList(), JSON.parse(JSON.stringify(task))];
-    localStorage.setItem('list', JSON.stringify(list));
+    this.saveList(list);
   };
 
   // Add task to DOM
@@ -52,7 +57,6 @@ class todoList {
       const task = document.querySelector('.list-input').value;
       const newIndex = todoList.getList().length;
       e.preventDefault();
-
       const todo = new ToDo(task, newIndex);
       todoList.addTask(todo);
       todoList.saveToDo(todo);
@@ -67,7 +71,7 @@ class todoList {
     list.forEach((task) => {
       task.index = list.indexOf(task);
     });
-    localStorage.setItem('list', JSON.stringify(list));
+    this.saveList(list);
   };
 
   static clearCompleted = () => {
@@ -77,7 +81,7 @@ class todoList {
     list.forEach((task) => {
       task.index = list.indexOf(task);
     });
-    localStorage.setItem('list', JSON.stringify(list));
+    this.saveList(list);
   };
 
   static clearAll = () => {
@@ -92,7 +96,7 @@ class todoList {
     const list = todoList.getList();
     const newDescription = document.getElementById(`description-${index}`);
     list[`${index}`].description = newDescription.value;
-    localStorage.setItem('list', JSON.stringify(list));
+    this.saveList(list);
   };
 }
 
